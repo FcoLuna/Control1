@@ -1,0 +1,18 @@
+Linea 1;SP-San Pablo;NP-Neptuno;PJ-Pajaritos;LR-Las Rejas;EC-Ecuador;AH-San Alberto Hurtado;US-Universidad de Santiago;EL-Estacion Central;LA-ULA;RP-Republica;LH-Los Heroes;LM-La Moneda;CH-Universidad de Chile;SL-Santa Lucia;UC-Universidad Catolica;BA-Baquedano;SA-Salvador;MM-Manuel Montt;PV-Pedro de Valdivia;LE-Los Leones;TB-Tobalaba;GO-El Golf;AL-Alcantara;EM-Escuela Militar;MQ-Manquehue;HM-Hernando de Magallanes;LD-Los Dominicos
+Linea 2;LC-La Cisterna;EP-El Parron;LO-Lo Ovalle;CN-Ciudad del Nino;DE-Departamental;LV-Lo Vial;SM-San Miguel;LL-El Llano;FR-Franklin;RO-Rondizzoni;PQ-Parque O'Higgins;TO-Toesca;HE-Los Heroes;AN-Santa Ana;CA-Puente Cal y Canto;PT-Patronato;CB-Cerro Blanco;CE-Cementerios;EI-Einstein;DO-Dorsal;ZA-Zapadores;AV-Vespucio Norte
+Linea 4;TOB-Tobalaba;COL-Cristobal Colon;BIL-Francisco Bilbao;PDG-Principe de Gales;SBO-Simon Bolivar;PEG-Plaza Egana;LOR-Los Orientales;RGR-Grecia;LPR-Los Presidentes;RQU-Quilin;LTO-Las Torres;MAC-Macul;VMA-Vicuna Mackenna;VVA-Vicente Valdes;RMA-Rojas Magallanes;TRI-Trinidad;SJE-San Jose de la Estrella;LQU-Los Quillayes;ECO-Elisa Correa;HSR-Hospital Sotero del Rio;LME-Las Mercedes;PIN-Protectora de la Infancia;PPA-Plaza de Puente Alto
+Linea 4a;VIM-Vicuna Mackenna;SJU-Santa Julia;LGR-La Granja;SRO-Santa Rosa;SRA-San Ramon;LCI-La Cisterna
+Linea 5;PM-Plaza de Maipu;SB-Santiago Bueras;DS-Del Sol;MT-Monte Tabor;LP-Las Parcelas;LS-Laguna Sur;BR-Barrancas;PU-Pudahuel;SO-San Pablo;PR-Lo Prado;BL-Blanqueado;GL-Gruta de Lourdes;QN-Quinta Normal;RC-Cumming;NA-Santa Ana;PZ-Plaza de Armas;BE-Bellas Artes;BQ-Baquedano;PB-Parque Bustamante;SI-Santa Isabel;IR-Irarrazaval;NU-Ñuble;RA-Rodrigo de Araya;CV-Carlos Valdovinos;AG-Camino Agricola;SJ-San Joaquin;PE-Pedrero;MA-Mirador;LF-Bellavista de La Florida;VV-Vicente Valdes
+Linea 6;CER-Cerrillos;LVA-Lo Valledor;PAC-Pedro Aguirre Cerda;FRA-Franklin;BIO-Bio Bio;NUB-Ñuble;ESN-Estadio Nacional;NUO-Ñunoa;ISU-Ines de Suarez;LEN-Los Leones
+--
+SP-SO
+AN-NA
+LH-HR
+BA-BQ
+LE-LEN
+NU-NUB
+FR-FRA
+LC-LCI
+VMA-VIM
+VV-VVA
+TB-TOB
