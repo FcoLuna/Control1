@@ -150,7 +150,7 @@ void recorrer_arbol2(Lista inicio, int origen, string estacion_inicial, string e
 {
     if(inicio != NULL && num_recorrido < num_estaciones)
     {
-        if(inicio->codigo==estacion_final)
+        if(inicio->nombre==estacion_final)
         {
             if(num_recorrido < num_estaciones_min)
             {
@@ -183,12 +183,14 @@ void recorrer_arbol(string estacion_inicial, string estacion_final )
         cout<<"Estacion final invalida"<<endl;
     else
     {
+        estacion_final=inicio->nombre;
         buscar_nodo(inicio,estacion_inicial);
         if(inicio==NULL)
             cout<<"Estacion inicial invalida"<<endl;
         else
             {
-                recorrer_arbol2(inicio,0,inicio->codigo,estacion_final,1,0,inicio->nombre);
+                estacion_inicial=inicio->nombre;
+                recorrer_arbol2(inicio,0,inicio->nombre,estacion_final,1,0,inicio->nombre);
             }
     }
 }
