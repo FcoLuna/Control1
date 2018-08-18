@@ -23,6 +23,7 @@ int num_estaciones=0;
 int num_estaciones_min;
 int ingresos_maximos;
 
+// estructura Lista 
 void buscar_nodo(Lista &in_nodo, string codigo)
 {
     for(int i = 0 ; i < malla.size() ; i++)
@@ -48,6 +49,7 @@ void buscar_nodo(Lista &in_nodo, string codigo)
     Siendo cada línea del archivo una línea hasta encontrarse un "--" que significa que empiezan las combinaciones
 */
 
+//Funcion Encargada de abrir el archivo con las estaciones y los convierte en una lista 
 void file_to_tree ()
 {
     string cadena;
@@ -143,6 +145,7 @@ void file_to_tree ()
     fe.close();
 }
 
+//Recorre la lista 
 void recorrer_arbol2(Lista inicio, int origen, string estacion_inicial, string estacion_final, int flag_inicial, int num_recorrido, string camino)
 {
     if(inicio != NULL && num_recorrido < num_estaciones)
@@ -171,6 +174,7 @@ void recorrer_arbol2(Lista inicio, int origen, string estacion_inicial, string e
     }
 }
 
+// Funcion para validar estacion de inicio y estacion de termino
 void recorrer_arbol(string estacion_inicial, string estacion_final )
 {
     Lista inicio=NULL;
@@ -188,6 +192,8 @@ void recorrer_arbol(string estacion_inicial, string estacion_final )
             }
     }
 }
+
+//Muestra el resutado del camino minimo
 
 void iniciar(string estacion_inicial, string estacion_final)
 {
