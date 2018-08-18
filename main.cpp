@@ -210,13 +210,13 @@ int main(int argc, char* argv[])
     if( argc < 2 )
         cout << "Debe ingresar al menos 1 argumento" << endl;
     else
-        if(argv[1]  == "-f")
+        if(string(argv[1])  == "-f")
             if(argc == 4)
-                iniciar(argv[2],argv[3]);
+                iniciar(string(argv[2]),string(argv[3]));
             else
                 cout << "Debe ingresar correctamente las estaciones" << endl;
         else
-            if(argv[1]  == "-v")
+            if(string(argv[1])  == "-v")
                 cout << "Integrantes: \n\t - Francisco Luna\n\t - Ignacio Araya\n" << endl;
     return 0;
 }
