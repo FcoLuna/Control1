@@ -212,44 +212,53 @@ void iniciar(string estacion_inicial, string estacion_final)
 int main(int argc, char* argv[])
 {
     int status, rank_actual, tam_procesadores;
-    MPI_Status rec_stat;
+    MPI_Status rec_stat;         
     int fuente, destino;
     float t0, t1;
-    t0 = clock();
-    MPI_Init(&argc, &argv);
-    MPI_Comm_size(MPI_COMM_WORLD, &tam_procesadores);
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank_actual);
+    int limite[2];
     if( argc < 2 )
         cout << "Debe ingresar al menos 1 argumento" << endl;
     else
         if(string(argv[1])  == "-f")
-<<<<<<< HEAD
             if(argc == 4){
+                t0 = clock();
+                MPI_Init(&argc, &argv);
+                MPI_Comm_size(MPI_COMM_WORLD, &tam_procesadores);
+                MPI_Comm_rank(MPI_COMM_WORLD, &rank_actual);
                 file_to_tree();
                 num_estaciones_min=num_estaciones;
                 ingresos_maximos=num_estaciones;
                 recorrer_arbol(string(argv[2]),string(argv[3]));
-                int aux = num_estaciones_min/tam_procesadores;
                 if(rank_actual==0){
-                    for(int i=0;i<num_estaciones_min;i++){
-                        MPI_Send(camino_minimo[i].linea,i,MPI_CHAR,1,0,MPI_COMM_WORLD);
+                    if(num_estaciones%2==0){
+                        for(int i=0; i<cant_proce; i++){
+                            limite[0] = ((num_estaciones/cant_proce)*i)+1;//limite inferior (dependiendo de la cantidad de proce dividimos las estaciones a procesar)
+                            limite[1] = ((num_estaciones/cant_proce)*(i+1));//limite superior
+                            status = MPI_Send(limite, 2, MPI_INT, i, 0, MPI_COMM_WORLD);//envio limites
+                        }
+                    }
+                    else{
+                        for(int i=0; i<cant_proce; i++){
+                            limite[0] = ((num_estaciones/cant_proce)*i)+1;//limite inferior (dependiendo de la cantidad de proce dividimos las estaciones a procesar)
+                            limite[1] = ((num_estaciones/cant_proce)*(i+1)+1);//limite superior +1 para el caso de los impares ya que dejara el ultimo numero fuera del limite
+                            status = MPI_Send(limite, 2, MPI_INT, i, 0, MPI_COMM_WORLD);//envio limites
+                        }   
+                    }
+                    status = MPI_Recv(limite, 2, MPI_INT, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &estado);//recibo limite para el proce 0
+                    for(int i=limite[0];i<=limite[1];i++){//recorremos los numeros entre los limites
+                        cout<<camino_minimo[i]<<endl;//mostrando camino
+                    }
+                    cout<<"Debe recorrer "<<num_estaciones_min<<" para llegar a su destino\n";
+                    cout<<camino_minimo<<endl<<endl;
+                }
+                else{//para los demás procesadores
+                    status = MPI_Recv(limite, 2, MPI_INT, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &estado);// reciben los limites enviados por 0
+                    for(int i=limite[0];i<=limite[1];i++){//recorremos los numeros entre los limites
+                        cout<<camino_minimo[i]<<endl;//mostramos las estaciones
                     }
                 }
-                else{
-                    for(int j=1;j<tam_procesadores;j++){
-                        for(int i=0;i<num_estaciones_min;i++){
-                            MPI_Recv(camino_minimo[j],j,MPI_CHAR,1,MPI_ANY_TAG,MPI_COMM_WORLD,MPI_IGNORE_STATUS);
-                            cout<<camino_minimo[j].linea;
-                        }
-                    }   
-                }
-                cout<<"Debe recorrer "<<num_estaciones_min<<" para llegar a su destino\n";
-                cout<<camino_minimo<<endl<<endl;
+                MPI_Finalize();
             }
-=======
-            if(argc == 4)
-                iniciar(string(argv[2]),string(argv[3]));
->>>>>>> ac83a5857e8378271cbdb319e6b3a184bd8cb9b2
             else
                 cout << "Debe ingresar correctamente las estaciones" << endl;
         else
@@ -258,7 +267,6 @@ int main(int argc, char* argv[])
     t1 = clock();
     double time = (double(t1-t0)/CLOCKS_PER_SEC);
     cout <<"tiempo de ejecucion: "<<time<<" con "<<tam_procesadores<<" procesadores"<<endl;
-    MPI_Finalize();
     return 0;
 
 }
