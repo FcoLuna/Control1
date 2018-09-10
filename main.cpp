@@ -245,7 +245,8 @@ int main(int argc, char* argv[])
                     }
                     status = MPI_Recv(limite, 2, MPI_INT, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &rec_stat);//recibo limite para el proce 0
                     for(int i=limite[0];i<=limite[1];i++){//recorremos los numeros entre los limites
-                        cout<<camino_minimo[i]<<endl;//mostrando camino
+                        cout<<camino_minimo[i];//mostrando camino
+                        cout<<" - ";
                     }
                     cout<<"Debe recorrer "<<num_estaciones_min<<" para llegar a su destino\n";
                     cout<<camino_minimo<<endl<<endl;
@@ -253,9 +254,11 @@ int main(int argc, char* argv[])
                 else{//para los demás procesadores
                     status = MPI_Recv(limite, 2, MPI_INT, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &rec_stat);// reciben los limites enviados por 0
                     for(int i=limite[0];i<=limite[1];i++){//recorremos los numeros entre los limites
-                        cout<<camino_minimo[i]<<endl;//mostramos las estaciones
+                        cout<<camino_minimo[i];//mostramos las estaciones
+                        cout<<" - ";
                     }
                 }
+                cout<<endl;
                 MPI_Finalize();
             }
             else
