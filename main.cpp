@@ -213,7 +213,6 @@ int main(int argc, char* argv[])
 {
     int status, rank_actual, tam_procesadores;
     MPI_Status rec_stat;         
-    int fuente, destino;
     float t0, t1;
     int limite[2];
     if( argc < 2 )
@@ -231,20 +230,20 @@ int main(int argc, char* argv[])
                 recorrer_arbol(string(argv[2]),string(argv[3]));
                 if(rank_actual==0){
                     if(num_estaciones%2==0){
-                        for(int i=0; i<cant_proce; i++){
-                            limite[0] = ((num_estaciones/cant_proce)*i)+1;//limite inferior (dependiendo de la cantidad de proce dividimos las estaciones a procesar)
-                            limite[1] = ((num_estaciones/cant_proce)*(i+1));//limite superior
+                        for(int i=0; i<tam_procesadores; i++){
+                            limite[0] = ((num_estaciones/tam_procesadores)*i)+1;//limite inferior (dependiendo de la cantidad de proce dividimos las estaciones a procesar)
+                            limite[1] = ((num_estaciones/tam_procesadores)*(i+1));//limite superior
                             status = MPI_Send(limite, 2, MPI_INT, i, 0, MPI_COMM_WORLD);//envio limites
                         }
                     }
                     else{
-                        for(int i=0; i<cant_proce; i++){
-                            limite[0] = ((num_estaciones/cant_proce)*i)+1;//limite inferior (dependiendo de la cantidad de proce dividimos las estaciones a procesar)
-                            limite[1] = ((num_estaciones/cant_proce)*(i+1)+1);//limite superior +1 para el caso de los impares ya que dejara el ultimo numero fuera del limite
+                        for(int i=0; i<tam_procesadores; i++){
+                            limite[0] = ((num_estaciones/tam_procesadores)*i)+1;//limite inferior (dependiendo de la cantidad de proce dividimos las estaciones a procesar)
+                            limite[1] = ((num_estaciones/tam_procesadores)*(i+1)+1);//limite superior +1 para el caso de los impares ya que dejara el ultimo numero fuera del limite
                             status = MPI_Send(limite, 2, MPI_INT, i, 0, MPI_COMM_WORLD);//envio limites
                         }   
                     }
-                    status = MPI_Recv(limite, 2, MPI_INT, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &estado);//recibo limite para el proce 0
+                    status = MPI_Recv(limite, 2, MPI_INT, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &rec_stat);//recibo limite para el proce 0
                     for(int i=limite[0];i<=limite[1];i++){//recorremos los numeros entre los limites
                         cout<<camino_minimo[i]<<endl;//mostrando camino
                     }
@@ -252,7 +251,7 @@ int main(int argc, char* argv[])
                     cout<<camino_minimo<<endl<<endl;
                 }
                 else{//para los demás procesadores
-                    status = MPI_Recv(limite, 2, MPI_INT, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &estado);// reciben los limites enviados por 0
+                    status = MPI_Recv(limite, 2, MPI_INT, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &rec_stat);// reciben los limites enviados por 0
                     for(int i=limite[0];i<=limite[1];i++){//recorremos los numeros entre los limites
                         cout<<camino_minimo[i]<<endl;//mostramos las estaciones
                     }
