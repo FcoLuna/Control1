@@ -254,7 +254,7 @@ int main(int argc, char* argv[])
                 cout << "Debe ingresar correctamente las estaciones" << endl;
         else
             if(string(argv[1])  == "-v")
-                cout << "Integrantes: \n\t - Francisco Luna\n\t - Ignacio Araya\n" << endl;
+                cout << "Integrantes: \n\t - Francisco Luna\n\t - Ignacio Araya\n - Erwin Alves\n" << endl;
     t1 = clock();
     double time = (double(t1-t0)/CLOCKS_PER_SEC);
     cout <<"tiempo de ejecucion: "<<time<<" con "<<tam_procesadores<<" procesadores"<<endl;
