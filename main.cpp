@@ -2,6 +2,8 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <mpi.h>
+#include <time.h>
 
 using namespace std;
 
@@ -150,7 +152,7 @@ void recorrer_arbol2(Lista inicio, int origen, string estacion_inicial, string e
 {
     if(inicio != NULL && num_recorrido < num_estaciones)
     {
-        if(inicio->codigo==estacion_final)
+        if(inicio->nombre==estacion_final)
         {
             if(num_recorrido < num_estaciones_min)
             {
@@ -183,12 +185,14 @@ void recorrer_arbol(string estacion_inicial, string estacion_final )
         cout<<"Estacion final invalida"<<endl;
     else
     {
+        estacion_final=inicio->nombre;
         buscar_nodo(inicio,estacion_inicial);
         if(inicio==NULL)
             cout<<"Estacion inicial invalida"<<endl;
         else
             {
-                recorrer_arbol2(inicio,0,inicio->codigo,estacion_final,1,0,inicio->nombre);
+                estacion_inicial=inicio->nombre;
+                recorrer_arbol2(inicio,0,inicio->nombre,estacion_final,1,0,inicio->nombre);
             }
     }
 }
@@ -207,16 +211,49 @@ void iniciar(string estacion_inicial, string estacion_final)
 
 int main(int argc, char* argv[])
 {
+    int status, rank_actual, tam_procesadores;
+    MPI_Status rec_stat;
+    int fuente, destino;
+    float t0, t1;
+    t0 = clock();
+    MPI_Init(&argc, &argv);
+    MPI_Comm_size(MPI_COMM_WORLD, &tam_procesadores);
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank_actual);
     if( argc < 2 )
         cout << "Debe ingresar al menos 1 argumento" << endl;
     else
-        if(argv[1]  == "-f")
-            if(argc == 4)
-                iniciar(argv[2],argv[3]);
+        if(string(argv[1])  == "-f")
+            if(argc == 4){
+                file_to_tree();
+                num_estaciones_min=num_estaciones;
+                ingresos_maximos=num_estaciones;
+                recorrer_arbol(string(argv[2]),string(argv[3]));
+                int aux = num_estaciones_min/tam_procesadores;
+                if(rank_actual==0){
+                    for(int i=0;i<num_estaciones_min;i++){
+                        MPI_Send(camino_minimo[i].linea,i,MPI_CHAR,1,0,MPI_COMM_WORLD);
+                    }
+                }
+                else{
+                    for(int j=1;j<tam_procesadores;j++){
+                        for(int i=0;i<num_estaciones_min;i++){
+                            MPI_Recv(camino_minimo[j],j,MPI_CHAR,1,MPI_ANY_TAG,MPI_COMM_WORLD,MPI_IGNORE_STATUS);
+                            cout<<camino_minimo[j].linea;
+                        }
+                    }   
+                }
+                cout<<"Debe recorrer "<<num_estaciones_min<<" para llegar a su destino\n";
+                cout<<camino_minimo<<endl<<endl;
+            }
             else
                 cout << "Debe ingresar correctamente las estaciones" << endl;
         else
-            if(argv[1]  == "-v")
+            if(string(argv[1])  == "-v")
                 cout << "Integrantes: \n\t - Francisco Luna\n\t - Ignacio Araya\n" << endl;
+    t1 = clock();
+    double time = (double(t1-t0)/CLOCKS_PER_SEC);
+    cout <<"tiempo de ejecucion: "<<time<<" con "<<tam_procesadores<<" procesadores"<<endl;
+    MPI_Finalize();
     return 0;
+
 }
