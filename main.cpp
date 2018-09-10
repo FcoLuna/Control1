@@ -223,6 +223,7 @@ int main(int argc, char* argv[])
         cout << "Debe ingresar al menos 1 argumento" << endl;
     else
         if(string(argv[1])  == "-f")
+<<<<<<< HEAD
             if(argc == 4){
                 file_to_tree();
                 num_estaciones_min=num_estaciones;
@@ -245,6 +246,10 @@ int main(int argc, char* argv[])
                 cout<<"Debe recorrer "<<num_estaciones_min<<" para llegar a su destino\n";
                 cout<<camino_minimo<<endl<<endl;
             }
+=======
+            if(argc == 4)
+                iniciar(string(argv[2]),string(argv[3]));
+>>>>>>> ac83a5857e8378271cbdb319e6b3a184bd8cb9b2
             else
                 cout << "Debe ingresar correctamente las estaciones" << endl;
         else
