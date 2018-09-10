@@ -254,7 +254,6 @@ int main(int argc, char* argv[])
                     status = MPI_Recv(limite, 2, MPI_INT, 0, MPI_ANY_TAG, MPI_COMM_WORLD, &rec_stat);// reciben los limites enviados por 0
                     for(int i=limite[0];i<=limite[1];i++){//recorremos los numeros entre los limites
                         cout<<camino_minimo[i];//mostramos las estaciones
-                        cout<<" - ";
                     }
                 }
                 cout<<endl;
