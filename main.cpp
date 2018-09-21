@@ -461,7 +461,7 @@ int main(int argc, char* argv[])
                 if(!world_rank) cout << "Debe ingresar correctamente las estaciones" << endl;
         else
             if(string(argv[1])  == "-v" && !world_rank)
-                cout << "Integrantes: \n\t - Francisco Luna\n\t - Ignacio Araya\n" << endl;
+                cout << "Integrantes: \n\t - Francisco Luna\n\t - Ignacio Araya\n - Erwin Alvez\n" << endl;
     MPI_Finalize();
     return 0;
 }
